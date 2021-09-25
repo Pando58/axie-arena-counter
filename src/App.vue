@@ -10,11 +10,41 @@
       <div class="flex-1">🟡 Energy</div>
       <div class="flex-1">🃏 Cards</div>
     </li>
-    <li class="py-3 flex divide-x divide-gray-200">
-      <div class="flex-shrink w-16 sm:w-24">Start</div>
-      <div class="flex-1">3</div>
-      <div class="flex-1">6</div>
+    <li
+      class="py-3 flex divide-x divide-gray-200"
+      v-for="round in rounds"
+      :key="round.round"
+    >
+      <div class="flex-shrink w-16 sm:w-24 text-gray-300" v-if="round.round === 0">Start</div>
+      <div class="flex-shrink w-16 sm:w-24" v-else>{{ round.round }}</div>
+      <div class="flex-1">{{ round.energy }}</div>
+      <div class="flex-1">{{ round.cards }}</div>
     </li>
   </ul>
   </div>
 </template>
+
+<script>
+import { reactive } from 'vue'
+
+export default {
+  setup() {
+    const rounds = reactive([
+      {
+        round: 0,
+        energy: 3,
+        cards: 6
+      },
+      {
+        round: 1,
+        energy: 4,
+        cards: 7
+      },
+    ]);
+
+    return {
+      rounds
+    };
+  }
+}
+</script>
