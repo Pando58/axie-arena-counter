@@ -20,8 +20,8 @@
               :key="round.round"
             >
             <div class="flex-shrink w-16 sm:w-24">{{ round.round }}</div>
-              <div class="flex-1">{{ round.energy }}</div>
-              <div class="flex-1">{{ round.cards }}</div>
+              <div class="flex-1">{{ round.finalEnergy }}</div>
+              <div class="flex-1">{{ round.finalCards }}</div>
             </li>
 
             <!-- Current round -->
@@ -74,7 +74,7 @@
                   </div>
 
                   <!-- Total -->
-                  <span>{{ currentRound.energy }}</span>
+                  <span>{{ energyTotal }}</span>
                 </div>
               </div>
 
@@ -112,7 +112,7 @@
                   </div>
 
                   <!-- Total -->
-                  <span>{{ currentRound.cards }}</span>
+                  <span>{{ cardsTotal }}</span>
                 </div>
               </div>
 
@@ -125,13 +125,35 @@
 </template>
 
 <script>
-import { ref, reactive, onBeforeMount } from 'vue'
+import { ref, reactive, computed, onBeforeMount } from 'vue'
 
 export default {
   setup() {
     const rounds = reactive([]);
-
     const currentRound = ref(null);
+
+    const energyTotal = computed(() => {
+      let total = currentRound.value.energy;
+      
+      currentRound.value.energyMath.forEach(i => {
+        if (i === '-2') total -= 2;
+        if (i === '-1') total--;
+        if (i === '+1') total++;
+      });
+
+      return Math.max(Math.min(total, 10), 0);
+    });
+
+    const cardsTotal = computed(() => {
+      let total = currentRound.value.cards;
+      
+      currentRound.value.cardsMath.forEach(i => {
+        if (i === '-1') total--;
+        if (i === '+1') total++;
+      });
+
+      return Math.max(Math.min(total, 12), 0);
+    });
 
     const restartRounds = () => {
       rounds.splice(0, rounds.length);
@@ -144,7 +166,9 @@ export default {
           energy: 3,
           cards: 6,
           energyMath: [],
-          cardsMath: []
+          cardsMath: [],
+          finalEnergy: null,
+          finalCards: null
         }
         return;
       }
@@ -153,14 +177,18 @@ export default {
 
       currentRound.value = {
         round: lastRound.round + 1,
-        energy: Math.min(lastRound.energy + 2, 10),
-        cards: Math.min(lastRound.cards + 3, 12),
+        energy: lastRound.finalEnergy + 2,
+        cards: lastRound.finalCards + 3,
         energyMath: [],
-        cardsMath: []
+        cardsMath: [],
+        finalEnergy: null,
+        finalCards: null
       };
     };
 
     const addRound = () => {
+      currentRound.value.finalEnergy = energyTotal.value;
+      currentRound.value.finalCards = cardsTotal.value;
       rounds.push(currentRound.value);
       createRound();
     };
@@ -173,9 +201,11 @@ export default {
     return {
       rounds,
       currentRound,
+      energyTotal,
+      cardsTotal,
       restartRounds,
       createRound,
-      addRound
+      addRound,
     };
   }
 }
