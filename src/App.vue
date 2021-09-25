@@ -42,18 +42,30 @@
                     <!-- List -->
                     <div class="relative">
                       <ul class="w-10 h-32 border rounded divide-y px-1 overflow-y-auto">
-                        <li>-1</li>
-                        <li>-2</li>
-                        <li>-1</li>
-                        <li>+1</li>
+                        <li v-for="i in currentRound.energyMath" :key="i">{{ i }}</li>
                       </ul>
                       <div class="absolute bottom-0 transform translate-x-12">
                         <i class="fas fa-backspace text-gray-400"></i>
                       </div>
                     </div>
-                    <div class="w-7 h-7 ml-2 rounded-full border shadow flex items-center justify-center cursor-pointer">-2</div>
-                    <div class="w-7 h-7 ml-2 rounded-full border shadow flex items-center justify-center cursor-pointer">-1</div>
-                    <div class="w-7 h-7 ml-2 rounded-full border shadow flex items-center justify-center cursor-pointer">+1</div>
+                    <div
+                      class="w-7 h-7 ml-2 rounded-full border shadow flex items-center justify-center cursor-pointer"
+                      @click="currentRound.energyMath.push('-2')"
+                    >
+                      -2
+                    </div>
+                    <div
+                      class="w-7 h-7 ml-2 rounded-full border shadow flex items-center justify-center cursor-pointer"
+                      @click="currentRound.energyMath.push('-1')"
+                    >
+                      -1
+                    </div>
+                    <div
+                      class="w-7 h-7 ml-2 rounded-full border shadow flex items-center justify-center cursor-pointer"
+                      @click="currentRound.energyMath.push('+1')"
+                    >
+                      +1
+                    </div>
                   </div>
 
                   <!-- Total -->
@@ -69,16 +81,24 @@
                     <!-- List -->
                     <div class="relative">
                       <ul class="w-10 h-32 border rounded divide-y px-1 overflow-y-auto">
-                        <li>-1</li>
-                        <li>-1</li>
-                        <li>+1</li>
+                        <li v-for="i in currentRound.cardsMath" :key="i">{{ i }}</li>
                       </ul>
                       <div class="absolute bottom-0 transform translate-x-12">
                         <i class="fas fa-backspace text-gray-400"></i>
                       </div>
                     </div>
-                    <div class="w-7 h-7 ml-2 rounded-full border shadow flex items-center justify-center cursor-pointer">-1</div>
-                    <div class="w-7 h-7 ml-2 rounded-full border shadow flex items-center justify-center cursor-pointer">+1</div>
+                    <div
+                      class="w-7 h-7 ml-2 rounded-full border shadow flex items-center justify-center cursor-pointer"
+                      @click="currentRound.cardsMath.push('-1')"
+                    >
+                      -1
+                    </div>
+                    <div
+                      class="w-7 h-7 ml-2 rounded-full border shadow flex items-center justify-center cursor-pointer"
+                      @click="currentRound.cardsMath.push('+1')"
+                    >
+                      +1
+                    </div>
                   </div>
 
                   <!-- Total -->
@@ -112,7 +132,9 @@ export default {
         currentRound.value = {
           round: 1,
           energy: 3,
-          cards: 6
+          cards: 6,
+          energyMath: [],
+          cardsMath: []
         }
         return;
       }
@@ -122,7 +144,9 @@ export default {
       currentRound.value = {
         round: lastRound.round + 1,
         energy: Math.min(lastRound.energy + 2, 10),
-        cards: Math.min(lastRound.cards + 3, 12)
+        cards: Math.min(lastRound.cards + 3, 12),
+        energyMath: [],
+        cardsMath: []
       };
     };
 
