@@ -147,6 +147,7 @@ export default {
 
     const cardsTotal = computed(() => {
       let total = currentRound.value.cards;
+      console.log(total);
       
       currentRound.value.cardsMath.forEach(i => {
         if (i === '-1') total--;
@@ -178,8 +179,8 @@ export default {
 
       currentRound.value = {
         round: lastRound.round + 1,
-        energy: lastRound.finalEnergy + 2,
-        cards: lastRound.finalCards + 3,
+        energy: Math.min(lastRound.finalEnergy + 2, 10),
+        cards: Math.min(lastRound.finalCards + 3, 12),
         energyMath: [],
         cardsMath: [],
         finalEnergy: null,
