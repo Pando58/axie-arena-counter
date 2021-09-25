@@ -19,8 +19,7 @@
               v-for="round in rounds"
               :key="round.round"
             >
-              <div class="flex-shrink w-16 sm:w-24 text-gray-300" v-if="round.round === 0">Start</div>
-              <div class="flex-shrink w-16 sm:w-24" v-else>{{ round.round }}</div>
+            <div class="flex-shrink w-16 sm:w-24">{{ round.round }}</div>
               <div class="flex-1">{{ round.energy }}</div>
               <div class="flex-1">{{ round.cards }}</div>
             </li>
@@ -29,7 +28,10 @@
             <li class="py-3 flex divide-x divide-gray-200">
               <div class="flex-shrink w-16 sm:w-24 text-green-500">
                 <div>{{ currentRound.round }}</div>
-                <i class="fas fa-plus-circle text-2xl mt-1"></i>
+                <i
+                  class="fas fa-plus-circle text-2xl mt-1"
+                  @click="addRound"
+                ></i>
               </div>
 
               <!-- Energy -->
@@ -103,21 +105,30 @@ export default {
 
     const restartRounds = () => {
       rounds.splice(0, rounds.length);
-      rounds.push({
-        round: 0,
-        energy: 3,
-        cards: 6
-      });
     };
 
     const createRound = () => {
+      if (rounds.length == 0) {
+        currentRound.value = {
+          round: 1,
+          energy: 3,
+          cards: 6
+        }
+        return;
+      }
+      
       const lastRound = rounds[rounds.length - 1];
 
       currentRound.value = {
         round: lastRound.round + 1,
-        energy: lastRound.energy,
-        cards: lastRound.cards
+        energy: Math.min(lastRound.energy + 2, 10),
+        cards: Math.min(lastRound.cards + 3, 12)
       };
+    };
+
+    const addRound = () => {
+      rounds.push(currentRound.value);
+      createRound();
     };
 
     onBeforeMount(() => {
@@ -129,7 +140,8 @@ export default {
       rounds,
       currentRound,
       restartRounds,
-      createRound
+      createRound,
+      addRound
     };
   }
 }
