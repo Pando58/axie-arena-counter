@@ -45,9 +45,14 @@
                         <li v-for="i in currentRound.energyMath" :key="i">{{ i }}</li>
                       </ul>
                       <div class="absolute bottom-0 transform translate-x-12">
-                        <i class="fas fa-backspace text-gray-400"></i>
+                        <i
+                          class="fas fa-backspace text-gray-400"
+                          @click="currentRound.energyMath.pop()"
+                        ></i>
                       </div>
                     </div>
+
+                    <!-- Buttons -->
                     <div
                       class="w-7 h-7 ml-2 rounded-full border shadow flex items-center justify-center cursor-pointer"
                       @click="currentRound.energyMath.push('-2')"
@@ -84,9 +89,14 @@
                         <li v-for="i in currentRound.cardsMath" :key="i">{{ i }}</li>
                       </ul>
                       <div class="absolute bottom-0 transform translate-x-12">
-                        <i class="fas fa-backspace text-gray-400"></i>
+                        <i
+                          class="fas fa-backspace text-gray-400"
+                          @click="currentRound.cardsMath.pop()"
+                        ></i>
                       </div>
                     </div>
+
+                    <!-- Buttons -->
                     <div
                       class="w-7 h-7 ml-2 rounded-full border shadow flex items-center justify-center cursor-pointer"
                       @click="currentRound.cardsMath.push('-1')"
