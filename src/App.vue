@@ -30,7 +30,7 @@
             <div class="flex-shrink w-16 sm:w-24 text-green-500">
               <div>{{ currentRound.round }}</div>
               <i
-                class="fas fa-plus-circle text-2xl mt-1"
+                class="fas fa-plus-circle text-2xl mt-1 cursor-pointer hover:text-green-600"
                 @click="addRound"
               ></i>
             </div>
@@ -47,7 +47,7 @@
                     </ul>
                     <div class="absolute bottom-0 transform translate-x-12">
                       <i
-                        class="fas fa-backspace text-gray-400"
+                        class="fas fa-backspace cursor-pointer text-gray-400 hover:text-gray-500"
                         @click="currentRound.energyMath.pop()"
                       ></i>
                     </div>
@@ -55,19 +55,19 @@
 
                   <!-- Buttons -->
                   <div
-                    class="w-7 h-7 ml-2 rounded-full border shadow flex items-center justify-center cursor-pointer"
+                    class="w-7 h-7 ml-2 rounded-full border shadow flex items-center justify-center cursor-pointer hover:bg-gray-100"
                     @click="currentRound.energyMath.push('-2')"
                   >
                     -2
                   </div>
                   <div
-                    class="w-7 h-7 ml-2 rounded-full border shadow flex items-center justify-center cursor-pointer"
+                    class="w-7 h-7 ml-2 rounded-full border shadow flex items-center justify-center cursor-pointer hover:bg-gray-100"
                     @click="currentRound.energyMath.push('-1')"
                   >
                     -1
                   </div>
                   <div
-                    class="w-7 h-7 ml-2 rounded-full border shadow flex items-center justify-center cursor-pointer"
+                    class="w-7 h-7 ml-2 rounded-full border shadow flex items-center justify-center cursor-pointer hover:bg-gray-100"
                     @click="currentRound.energyMath.push('+1')"
                   >
                     +1
@@ -91,7 +91,7 @@
                     </ul>
                     <div class="absolute bottom-0 transform translate-x-12">
                       <i
-                        class="fas fa-backspace text-gray-400"
+                        class="fas fa-backspace cursor-pointer text-gray-400 hover:text-gray-500"
                         @click="currentRound.cardsMath.pop()"
                       ></i>
                     </div>
@@ -99,13 +99,13 @@
 
                   <!-- Buttons -->
                   <div
-                    class="w-7 h-7 ml-2 rounded-full border shadow flex items-center justify-center cursor-pointer"
+                    class="w-7 h-7 ml-2 rounded-full border shadow flex items-center justify-center cursor-pointer hover:bg-gray-100"
                     @click="currentRound.cardsMath.push('-1')"
                   >
                     -1
                   </div>
                   <div
-                    class="w-7 h-7 ml-2 rounded-full border shadow flex items-center justify-center cursor-pointer"
+                    class="w-7 h-7 ml-2 rounded-full border shadow flex items-center justify-center cursor-pointer hover:bg-gray-100"
                     @click="currentRound.cardsMath.push('+1')"
                   >
                     +1
