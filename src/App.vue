@@ -27,10 +27,16 @@
 
             <!-- Current round -->
             <li class="py-3 flex divide-x divide-gray-200">
-             <div class="flex-shrink w-16 sm:w-24 text-green-500">{{ rounds[rounds.length - 1].round + 1 }}</div>
+              <div class="flex-shrink w-16 sm:w-24 text-green-500">
+                <div>{{ currentRound.round }}</div>
+                <i class="fas fa-plus-circle text-2xl mt-1"></i>
+              </div>
+
+              <!-- Energy -->
               <div class="flex-1 px-3">
                 <div class="flex justify-evenly">
                   <div class="flex">
+
                     <!-- List -->
                     <div class="relative">
                       <ul class="w-10 h-32 border rounded divide-y px-1 overflow-y-auto">
@@ -48,11 +54,36 @@
                     <div class="w-7 h-7 ml-2 rounded-full border shadow flex items-center justify-center cursor-pointer">+1</div>
                   </div>
 
-                  <!-- Numero total -->
-                  <span>3</span>
+                  <!-- Total -->
+                  <span>{{ currentRound.energy }}</span>
                 </div>
               </div>
-              <div class="flex-1 px-3"></div>
+
+              <!-- Cards -->
+              <div class="flex-1 px-3">
+                <div class="flex justify-evenly">
+                  <div class="flex">
+
+                    <!-- List -->
+                    <div class="relative">
+                      <ul class="w-10 h-32 border rounded divide-y px-1 overflow-y-auto">
+                        <li>-1</li>
+                        <li>-1</li>
+                        <li>+1</li>
+                      </ul>
+                      <div class="absolute bottom-0 transform translate-x-12">
+                        <i class="fas fa-backspace text-gray-400"></i>
+                      </div>
+                    </div>
+                    <div class="w-7 h-7 ml-2 rounded-full border shadow flex items-center justify-center cursor-pointer">-1</div>
+                    <div class="w-7 h-7 ml-2 rounded-full border shadow flex items-center justify-center cursor-pointer">+1</div>
+                  </div>
+
+                  <!-- Total -->
+                  <span>{{ currentRound.cards }}</span>
+                </div>
+              </div>
+
             </li>
           </div>
         </div>
@@ -62,25 +93,43 @@
 </template>
 
 <script>
-import { reactive } from 'vue'
+import { ref, reactive, onBeforeMount } from 'vue'
 
 export default {
   setup() {
-    const rounds = reactive([
-      {
+    const rounds = reactive([]);
+
+    const currentRound = ref(null);
+
+    const restartRounds = () => {
+      rounds.splice(0, rounds.length);
+      rounds.push({
         round: 0,
         energy: 3,
         cards: 6
-      },
-      {
-        round: 1,
-        energy: 4,
-        cards: 7
-      },
-    ]);
+      });
+    };
+
+    const createRound = () => {
+      const lastRound = rounds[rounds.length - 1];
+
+      currentRound.value = {
+        round: lastRound.round + 1,
+        energy: lastRound.energy,
+        cards: lastRound.cards
+      };
+    };
+
+    onBeforeMount(() => {
+      restartRounds();
+      createRound();
+    });
 
     return {
-      rounds
+      rounds,
+      currentRound,
+      restartRounds,
+      createRound
     };
   }
 }
