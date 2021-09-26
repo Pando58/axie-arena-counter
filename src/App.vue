@@ -1,4 +1,6 @@
 <template>
+  <Header></Header>
+
   <div class="container mx-auto h-screen p-4">
   
   <!-- Table -->
@@ -127,8 +129,12 @@
 
 <script>
 import { ref, reactive, computed, onBeforeMount } from 'vue'
+import Header from '@/components/Header.vue'
 
 export default {
+  components: {
+    Header
+  },
   setup() {
     const rounds = reactive([]);
     const currentRound = ref(null);
@@ -147,7 +153,6 @@ export default {
 
     const cardsTotal = computed(() => {
       let total = currentRound.value.cards;
-      console.log(total);
       
       currentRound.value.cardsMath.forEach(i => {
         if (i === '-1') total--;
