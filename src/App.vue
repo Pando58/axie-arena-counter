@@ -1,5 +1,5 @@
 <template>
-  <Header></Header>
+  <Header @nav="clickHeaderNav"></Header>
 
   <div class="container mx-auto h-screen p-4">
   
@@ -200,6 +200,10 @@ export default {
       createRound();
     };
 
+    const clickHeaderNav = (e, btn) => {
+      console.log(btn);
+    };
+
     onBeforeMount(() => {
       restartRounds();
       createRound();
@@ -213,6 +217,7 @@ export default {
       restartRounds,
       createRound,
       addRound,
+      clickHeaderNav,
     };
   }
 }

@@ -5,8 +5,18 @@
       <span class="text-white font-medium text-lg">Energy & Card Counter</span>
     </div>
     <div class="flex-1 h-full flex items-stretch justify-end">
-      <span class="h-full flex items-center rounded text-white text-sm sm:text-base cursor-pointer bg-black bg-opacity-0 hover:bg-opacity-10 transition duration-75 px-2 sm:px-3">How this works</span>
-      <span class="h-full flex items-center rounded text-white text-sm sm:text-base cursor-pointer bg-black bg-opacity-0 hover:bg-opacity-10 transition duration-75 px-2 sm:px-3 ml-1 sm:ml-3">Support me</span>
+      <span
+        class="h-full flex items-center rounded text-white text-sm sm:text-base cursor-pointer bg-black bg-opacity-0 hover:bg-opacity-10 transition duration-75 px-2 sm:px-3"
+        @click="$emit('nav', $event, 'help')"
+      >
+        How this works
+      </span>
+      <span
+        class="h-full flex items-center rounded text-white text-sm sm:text-base cursor-pointer bg-black bg-opacity-0 hover:bg-opacity-10 transition duration-75 px-2 sm:px-3 ml-1 sm:ml-3"
+        @click="$emit('nav', $event, 'support')"
+      >
+        Support me
+      </span>
     </div>
   </nav>
 </template>
